@@ -14,9 +14,14 @@ groupOne.orientation = "column";
 
 groupOne.add("statictext", undefined, "This script allows you to add a title and cut your video.");
 var titleName = groupOne.add("edittext", undefined, "Title of Video");
+
+var titleDurationLbl = groupOne.add("statictext", undefined, "Duration of Title");
 var titleDuration = groupOne.add("edittext", undefined, "Duration of Title");
 
+var cutOneLbl = groupOne.add("statictext", undefined, "Cut Point 1");
 var cutOne = groupOne.add("edittext", undefined, "Cut Point 1");
+
+var cutTwoLbl = groupOne.add("statictext", undefined, "Cut Point 2");
 var cutTwo = groupOne.add("edittext", undefined, "Cut Point 2");
 
 // Group TWO of UI elements
@@ -27,6 +32,15 @@ var startButton = groupTwo.add("button", undefined, "Start");
 var cancelButton = groupTwo.add("button", undefined, "Cancel");
 
 startButton.onClick = function () {
+    // validate inputs are numbers
+    inputsToCheck = [titleDuration, cutOne, cutTwo];
+    inputsLabels = [titleDurationLbl, cutOneLbl, cutTwoLbl]
+    for (i in inputsToCheck) {
+        if (isNaN(inputsToCheck[i].text)) {
+            alert("Please input a number for " + inputsLabels[i].text);
+            return false;
+        }
+    }
     app.beginUndoGroup("Tutorial");
     doStuff();
 }
